@@ -4,6 +4,11 @@
 {% endblock %}
 {% block body %} {# On vient surcharger le block body déclarer dans base.html.body #}
     {# <h1>Hello world</h1> #}
+    <div class="py-3">
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <p class="email-connected">Connected as {{ app.user.email }}</p>
+        {% endif %}
+    </div>
        <div class="col-md-4 offset-md-2 left-column nb-1">
             <ul class="list-group list-tasks">
                 {% for task in listingTasks %}

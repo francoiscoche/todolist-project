@@ -13,6 +13,24 @@
 
     </head>
     <body>
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+            <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+                <ul class="navbar-nav ml-auto">
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href={{ path("app_logout") }}>Sign out</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href={{ path("app_login") }}>Sign up</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href={{ path("app_register") }}>Register</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
         <div class="container">
             <div class="row mt-5">
                 <div class="col-md-12 text-center">

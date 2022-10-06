@@ -30,3 +30,7 @@ ul.list-tasks {
 .list-tasks li a {
   color: black;
 }
+
+p.email-connected {
+  color: white;
+}

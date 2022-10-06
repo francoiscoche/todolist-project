@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request; // Pour récuperer les data des fo
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException; // Pour eviter le retour erreur de doublons dans la base de données
 
 
-#[Route('/', name: 'listing_')]
+#[Route('/dashboard', name: 'listing_')]
 class ListingController extends AbstractController
 {
 
