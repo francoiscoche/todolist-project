@@ -15,8 +15,8 @@ class ListingController extends AbstractController
 {
 
     // Method pour l'affichage des tasks, on renvoi en front la liste des tasks
-    #[Route('/{taskId}', name: 'show', requirements:["taskId"=>"\d+"])]
-    public function list(ManagerRegistry $entityManager, $taskId = null)
+    #[Route('/{taskId}', name: 'show', requirements:["taskId"=>"\d+"])] // d+ pour digit
+    public function show(ManagerRegistry $entityManager, $taskId = null)
     {
         $listingTasks = $entityManager->getRepository(Listing::class)->findAll();
 
@@ -35,7 +35,7 @@ class ListingController extends AbstractController
 
     // Method pour la suppresion d'une task
     #[Route('/delete/{taskId}', name:"delete")]
-    public function deletdddde(ManagerRegistry $doctrine, $taskId)
+    public function delete(ManagerRegistry $doctrine, $taskId)
     {
         $entityManager = $doctrine->getManager();
         // Avec l'ID passé en parametre de la function delete on récuperer les infos depuis la BDD

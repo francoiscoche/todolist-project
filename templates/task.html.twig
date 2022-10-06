@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    Créer une tache
+{% endblock %}
+{% block body %} {# On vient surcharger le block body déclarer dans base.html.body #}
+
+{{ form_start(form, {'attr': {'style': 'width:100%;' }}) }}
+    {{ form_widget(form) }} {# form_widget pour afficher les elements du formulaire #}
+{{ form_end(form) }}
+
+{% endblock %}
