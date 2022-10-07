@@ -5,7 +5,8 @@ body {
   background: #0e1621;
 }
 
-h1 {
+h1,
+h3 {
   color: white;
 }
 
@@ -33,4 +34,8 @@ ul.list-tasks {
 
 p.email-connected {
   color: white;
+}
+
+img.img-fluid {
+  height: 20%;
 }

@@ -9,7 +9,7 @@
             <p class="email-connected">Connected as {{ app.user.email }}</p>
         {% endif %}
     </div>
-       <div class="col-md-4 offset-md-2 left-column nb-1">
+       <div class="col-md-6 left-column nb-1">
             <ul class="list-group list-tasks">
                 {% for task in listingTasks %}
                 <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -67,4 +67,31 @@
             </div>
             {% endif %}
         </div>
+        <div class="row mt-5">
+            <div class="row">
+                <div class="col-md-12 text-center my-3">
+                        <h3>Weather forecast for Nancy</h3>
+                </div>
+                {% for data in forecastData.forecast |  slice(0, 5) %}
+                    <div class="card mx-2 my-3" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ data.datetime | date("d/m/y") }}</h5>
+                            {% if data.rr10 > 0 %}
+                                <img src="img/rain.png" class="img-fluid" alt="Responsive image">
+                            {% else %}
+                                <img src="img/sun.png" class="img-fluid" alt="Responsive image">
+                            {% endif %}
+                            <ul>
+                                <li>Min temp : {{ data.tmin }}°</li>
+                                <li>Max temp : {{ data.tmax }}°</li>
+                                <li>Sun hours : {{ data.sun_hours }} hours</li>
+                                <li>Rain probability : {{ data.probarain }}%</li>
+                            </ul>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+                </div>
+
+
 {% endblock %}

@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Annotation\Route; // Pour crèer les routes #Route
 use Doctrine\Persistence\ManagerRegistry; // Pour faire le lien avec le Entity (BDD)
 use Symfony\Component\HttpFoundation\Request; // Pour récuperer les data des formulaires
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException; // Pour eviter le retour erreur de doublons dans la base de données
+use App\Service\CallApiForecastService;
 
 
 #[Route('/dashboard', name: 'listing_')]
@@ -16,8 +17,12 @@ class ListingController extends AbstractController
 
     // Method pour l'affichage des tasks, on renvoi en front la liste des tasks
     #[Route('/{taskId}', name: 'show', requirements:["taskId"=>"\d+"])] // d+ pour digit
-    public function show(ManagerRegistry $entityManager, $taskId = null)
+    public function show(ManagerRegistry $entityManager,  CallApiForecastService $callApiForecastService,  $taskId = null)
     {
+
+        // On récupère les prévisions méteo depuis le service
+        $forecastData = $callApiForecastService->getForecastForNancy();
+
         $listingTasks = $entityManager->getRepository(Listing::class)->findAll();
 
         if (!empty($taskId)) {
@@ -28,7 +33,7 @@ class ListingController extends AbstractController
             $currentTask = current($listingTasks);
         }
 
-        return $this->render("dashboard.html.twig", ["listingTasks" => $listingTasks, 'currentTask' => $currentTask]);
+        return $this->render("dashboard.html.twig", ["listingTasks" => $listingTasks, 'currentTask' => $currentTask, 'forecastData' => $forecastData]);
     }
 
 
