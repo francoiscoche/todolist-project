@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    My Profile
+{% endblock %}
+{% block body %} {# On vient surcharger le block body déclarer dans base.html.body #}
+
+{% if infosUser.locality %}
+    <p>Your city is : {{ infosUser.locality }}</p>
+{% endif %}
+<p>Bellow you can change your city location</p>
+<form method="POST" action="{{ path('profile_edit') }}">
+    <div class="input-group">
+        <input type="text" placeholder="city" name="city">
+        <button class="btn btn-success" type="submit">
+            <i class="fa fa-plus"></i>
+        </button>
+    </div>
+</form>
+
+{% endblock %}
