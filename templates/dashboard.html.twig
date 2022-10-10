@@ -77,9 +77,9 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ data.datetime | date("d/m/y") }}</h5>
                             {% if data.rr10 > 0 %}
-                                <img src="img/rain.png" class="img-fluid" alt="Responsive image">
+                                <img class="img-fluid" src="{{ asset('build/images/rain.png') }}" />
                             {% else %}
-                                <img src="img/sun.png" class="img-fluid" alt="Responsive image">
+                                <img class="img-fluid" src="{{ asset('build/images/sun.png') }}" />
                             {% endif %}
                             <ul>
                                 <li>Min temp : {{ data.tmin }}°</li>
