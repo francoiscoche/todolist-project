@@ -19,9 +19,13 @@ class ListingController extends AbstractController
     #[Route('/{taskId}', name: 'show', requirements:["taskId"=>"\d+"])] // d+ pour digit
     public function show(ManagerRegistry $entityManager,  CallApiForecastService $callApiForecastService,  $taskId = null)
     {
+        // On récupère les infos de l'utilisateur
+        $user = $this->getUser();
+
+        $insee = $user->getInsee();
 
         // On récupère les prévisions méteo depuis le service
-        $forecastData = $callApiForecastService->getForecastForNancy();
+        $forecastData = $callApiForecastService->getForecast($insee);
 
         $listingTasks = $entityManager->getRepository(Listing::class)->findAll();
 

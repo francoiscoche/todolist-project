@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Service\CallApiForecastService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,25 +27,35 @@ class ProfileController extends AbstractController
     }
 
     #[Route('/edit', name:"edit", methods: ['POST'])]
-    public function update(Request $request, ManagerRegistry $doctrine)
+    public function update(Request $request, ManagerRegistry $doctrine, CallApiForecastService $callApiForecastService)
     {
 
         $userId = 1;
 
         $entityManager = $doctrine->getManager();
-        $getCity = $request->get('city');
 
-        if (empty($getCity)) {
+        // Get CP from profile form
+        $getCp = $request->get('cp');
+
+        if (empty($getCp)) {
             $this->addFlash(
                 "warning",
-                "Un nom de ville est obligatoire"
+                "A postal code is mandatory"
             );
             return $this->redirectToRoute('profile_show');
         }
 
-        $city = $entityManager->getRepository(User::class)->find($userId);
 
-        if (empty($city)) {
+        // Get city name and insee number from CP
+        $infoCity = $callApiForecastService->getInfosCitiesByCP($getCp);
+
+        $locality = $infoCity['cities'][0]['name'];
+        $insee = $infoCity['cities'][0]['insee'];
+
+
+        $user = $entityManager->getRepository(User::class)->find($userId);
+
+        if (empty($user)) {
             $this->addFlash(
                 'warning',
                 "Impossible de modifier la tâche"
@@ -52,12 +63,15 @@ class ProfileController extends AbstractController
             return $this->redirectToRoute('profile_show');
         }
 
-        $city->setLocality($getCity);
+        $user->setLocality($locality);
+        $user->setInsee($insee);
+        $user->setCp($getCp);
+
         $entityManager->flush();
 
         $this->addFlash(
             'success',
-            "La tâche « $getCity » a été modifiée avec succès"
+            "La tâche « $getCp » a été modifiée avec succès"
         );
 
         return $this->redirectToRoute('profile_show');

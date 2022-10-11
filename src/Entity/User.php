@@ -32,6 +32,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $locality = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $insee = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $cp = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -110,6 +116,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLocality(?string $locality): self
     {
         $this->locality = $locality;
+
+        return $this;
+    }
+
+    public function getInsee(): ?string
+    {
+        return $this->insee;
+    }
+
+    public function setInsee(?string $insee): self
+    {
+        $this->insee = $insee;
+
+        return $this;
+    }
+
+    public function getCp(): ?string
+    {
+        return $this->cp;
+    }
+
+    public function setCp(?string $cp): self
+    {
+        $this->cp = $cp;
 
         return $this;
     }

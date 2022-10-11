@@ -7,10 +7,10 @@
 {% if infosUser.locality %}
     <p>Your city is : {{ infosUser.locality }}</p>
 {% endif %}
-<p>Bellow you can change your city location</p>
+<p>Bellow you can change your location entering your postal code :</p>
 <form method="POST" action="{{ path('profile_edit') }}">
     <div class="input-group">
-        <input type="text" placeholder="city" name="city">
+        <input type="text" placeholder="Code Postal" name="cp">
         <button class="btn btn-success" type="submit">
             <i class="fa fa-plus"></i>
         </button>
