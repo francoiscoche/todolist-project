@@ -9,3 +9,4 @@
 - APIs (https://api.meteo-concept.com/documentation_openapi)
 - Authentication and registration
 - SQL CRUD
+- Webpack use
